@@ -16,8 +16,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class LordModel {
 
-    private long id;
-
     @NotBlank
     private String name;
 

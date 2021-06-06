@@ -12,7 +12,6 @@ import ru.sazonov.future1.exceptions.NotFoundEntityException;
 import ru.sazonov.future1.repositories.PlanetRepository;
 import ru.sazonov.future1.requests.LordModel;
 
-import java.sql.SQLException;
 import java.util.*;
 
 @Mapper(componentModel = "spring")
@@ -29,9 +28,6 @@ public abstract class LordMapper {
     })
     public abstract Lord toLordEntity(LordModel planetModel);
 
-    @Mapping(target = "id", ignore = true)
-    public abstract void updateLord(Lord source, @MappingTarget Lord target);
-
     @Mapping(target = "planets", expression = "java(updatePlanets(target, source.getPlanetIds()))")
     @Mapping(target = "id", ignore = true)
     public abstract void updateLord(LordModel source, @MappingTarget Lord target);
@@ -41,7 +37,7 @@ public abstract class LordMapper {
         if (Objects.isNull(planetIds)) {
             return lordPlanets;
         }
-        if (!lordPlanets.isEmpty()) {
+        if (Objects.nonNull(lordPlanets) && !lordPlanets.isEmpty()) {
             lord.clearPlanets();
         }
         planetIds.forEach(planetId -> {

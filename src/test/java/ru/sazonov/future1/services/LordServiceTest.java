@@ -39,19 +39,40 @@ public class LordServiceTest extends AbstractTest {
     public void findAllSlackerLords() {
     }
 
-    @Test
-    public void updateLord() {
+    @Test(expected = NotFoundEntityException.class)
+    public void Should_ThrowNotFoundEntityException_When_LordNotExistsInDb() {
+        when(lordRepository.findById(1L)).thenReturn(Optional.empty());
+        lordService.updateLord(1L, LordModel.builder().build());
+    }
 
+    @Test(expected = NotFoundEntityException.class)
+    public void Should_ThrowNotFoundEntityException_When_PlanetNotExistsInDb() {
+        Planet planet = Planet.builder().id(1L).name("name").build();
+        LordModel lordModel = LordModel.builder()
+                .name("lord")
+                .age(10L)
+                .planetIds(new HashSet<>(Collections.singletonList(planet.getId())))
+                .build();
+        when(planetRepository.findById(1L)).thenReturn(Optional.empty());
+        lordService.updateLord(1L, lordModel);
     }
 
     @Test
-    public void addPlanetToLord() {
-        Lord lord = Lord.builder().id(1L).build();
+    public void Should_UpdateLord_When_LordExistsInDb() {
+        Lord lord = Lord.builder().id(1L).planets(new HashSet<>()).build();
+        Planet planet = Planet.builder().id(1L).name("name").build();
+        LordModel lordModel = LordModel.builder()
+                .name("lord")
+                .age(10L)
+                .planetIds(new HashSet<>(Collections.singletonList(planet.getId())))
+                .build();
         when(lordRepository.findById(1L)).thenReturn(Optional.of(lord));
-        Planet planet = Planet.builder().id(1L).build();
         when(planetRepository.findById(1L)).thenReturn(Optional.of(planet));
+        Lord updatedLord = lordService.updateLord(1L, lordModel);
 
-//        LordModel lordModel = LordModel.builder().planetIds();
+        assertEquals(updatedLord.getAge(), 10L);
+        assertEquals(updatedLord.getName(), "lord");
+        assertEquals(updatedLord.getPlanets().size(), 1);
     }
 
     @Test(expected = NotFoundEntityException.class)
