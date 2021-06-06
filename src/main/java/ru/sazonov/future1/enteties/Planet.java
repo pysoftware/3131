@@ -20,7 +20,7 @@ public class Planet extends BaseEntity {
     /**
      * JoinTable cause of planet may have lord_id null
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "planet_lord",
             joinColumns = @JoinColumn(name = "planet_id"),

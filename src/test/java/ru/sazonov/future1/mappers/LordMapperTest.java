@@ -1,7 +1,6 @@
 package ru.sazonov.future1.mappers;
 
 import org.junit.Test;
-import org.mapstruct.factory.Mappers;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import ru.sazonov.future1.AbstractTest;
 import ru.sazonov.future1.enteties.Lord;
@@ -16,8 +15,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LordMapperTest extends AbstractTest {
 
@@ -52,17 +49,5 @@ public class LordMapperTest extends AbstractTest {
                 .planetIds(new HashSet<>(Collections.singletonList(1L)))
                 .build()
         );
-    }
-
-    @Test
-    public void updateLord() {
-    }
-
-    @Test
-    public void updatePlanets() {
-    }
-
-    @Test
-    public void toPlanetsSet() {
     }
 }
