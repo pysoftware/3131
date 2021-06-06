@@ -7,6 +7,8 @@ import ru.sazonov.future1.mappers.PlanetMapper;
 import ru.sazonov.future1.repositories.PlanetRepository;
 import ru.sazonov.future1.requests.PlanetModel;
 
+import java.util.Set;
+
 @Service
 @AllArgsConstructor
 public class PlanetService {
@@ -22,7 +24,7 @@ public class PlanetService {
         planetRepository.save(planet);
     }
 
-    public Iterable<Planet> findAll() {
+    public Set<Planet> findAll() {
         return planetRepository.findAll();
     }
 }

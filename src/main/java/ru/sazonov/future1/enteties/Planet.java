@@ -5,18 +5,20 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "planets")
+@Data
 public class Planet extends BaseEntity {
 
     @Column(name = "name")
-    @Getter
-    @Setter
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lord_id")
-    @Getter
-    @Setter
+    @JoinTable(
+            name = "planet_lord",
+            joinColumns = @JoinColumn(name = "planet_id"),
+            inverseJoinColumns = @JoinColumn(name = "lord_id", nullable = false)
+    )
     private Lord lord;
 }

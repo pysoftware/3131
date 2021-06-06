@@ -17,7 +17,6 @@ import java.util.*;
 @Mapper(componentModel = "spring")
 @Slf4j
 public abstract class LordMapper {
-
     @Autowired
     private PlanetRepository planetRepository;
 
@@ -30,10 +29,33 @@ public abstract class LordMapper {
     public abstract Lord toLordEntity(LordModel planetModel);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "planets", source = "planets")
     public abstract void updateLord(Lord source, @MappingTarget Lord target);
 
-    public Set<Planet> toPlanetsSet(Set<Long> planetIds) {
+    @Mapping(target = "planets", expression = "java(updatePlanets(target, source.getPlanetIds()))")
+    @Mapping(target = "id", ignore = true)
+    public abstract void updateLord(LordModel source, @MappingTarget Lord target);
+
+    protected Set<Planet> updatePlanets(Lord lord, Set<Long> planetIds) {
+        Set<Planet> lordPlanets = lord.getPlanets();
+        if (Objects.isNull(planetIds)) {
+            return lordPlanets;
+        }
+        if (!lordPlanets.isEmpty()) {
+            lord.clearPlanets();
+        }
+        planetIds.forEach(planetId -> {
+            Optional<Planet> planet = planetRepository.findById(planetId);
+            if (!planet.isPresent()) {
+                throw new NotFoundEntityException(String.format("Planet with id: %d not found", planetId));
+            } else {
+                lord.addPlanet(planet.get());
+            }
+        });
+
+        return lord.getPlanets();
+    }
+
+    protected Set<Planet> toPlanetsSet(Set<Long> planetIds) {
         if (Objects.isNull(planetIds)) {
             return Collections.emptySet();
         }

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sazonov.future1.enteties.Lord;
+import ru.sazonov.future1.enteties.Planet;
 import ru.sazonov.future1.exceptions.NotFoundEntityException;
 import ru.sazonov.future1.mappers.LordMapper;
 import ru.sazonov.future1.repositories.LordRepository;
@@ -28,14 +29,21 @@ public class LordService {
         return lordRepository.findFirst10Lords(Pageable.ofSize(10)).getContent();
     }
 
+    /**
+     *
+     * @param lordId lord id
+     * @param lordModel lord model
+     * @return updated lord
+     */
     @Transactional
     public Lord updateLord(Long lordId, LordModel lordModel) {
         Lord targetLord = findLordById(lordId);
-        Lord newLord = lordMapper.toLordEntity(lordModel);
-        lordMapper.updateLord(newLord, targetLord);
-//        Lord lord = lordRepository.save(targetLord);
-//        lordRepository
-        return lordRepository.save(targetLord);
+        Planet planet1 = new Planet();
+        planet1.setName("plan1");
+//        lordMapper.updateLord(lordModel, targetLord);
+        targetLord.addPlanet(planet1);
+        return targetLord;
+//        return lordRepository.save(targetLord);
     }
 
     public Lord findLordById(Long lordId) throws NotFoundEntityException {
