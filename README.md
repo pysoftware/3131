@@ -6,6 +6,7 @@
 @Service  
 @RestController
 MupStruct  
+@SpringBootTest & JUnit & IntegrationTest (LordRepositoryTest)  
 Тестовое задание
 
 3141 год. 

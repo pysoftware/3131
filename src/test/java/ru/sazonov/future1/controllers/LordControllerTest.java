@@ -22,13 +22,9 @@ import java.util.*;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 public class LordControllerTest extends AbstractTest {
-
-    @Autowired
-    private LordService lordService;
 
     @Test
     public void createLord() throws JsonProcessingException {
