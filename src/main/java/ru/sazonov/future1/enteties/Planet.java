@@ -5,7 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"lord"})
 @Entity
 @Table(name = "planets")
 @Data
@@ -14,11 +14,15 @@ public class Planet extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    /**
+     * JoinTable cause of planet may have lord_id null
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(
             name = "planet_lord",
             joinColumns = @JoinColumn(name = "planet_id"),
             inverseJoinColumns = @JoinColumn(name = "lord_id", nullable = false)
     )
+    @JsonIgnoreProperties("planets")
     private Lord lord;
 }

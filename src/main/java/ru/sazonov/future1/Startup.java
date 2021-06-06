@@ -46,11 +46,11 @@ public class Startup implements CommandLineRunner {
             Lord tempLord = new Lord();
             tempLord.setAge((long) i);
             tempLord.setName("Lord #" + i);
-            tempLord.setPlanets(Collections.emptySet());
+            tempLord.setPlanets(new HashSet<>());
             lordRepository.save(tempLord);
         }
 
-        lord1.setPlanets(Collections.emptySet());
+        lord1.setPlanets(new HashSet<>());
         Set<Planet> lord2Planets = new HashSet<>();
         lord2Planets.add(planet1);
         lord2Planets.add(planet2);

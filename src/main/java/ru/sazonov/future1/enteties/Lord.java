@@ -1,29 +1,27 @@
 package ru.sazonov.future1.enteties;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true, exclude = {"planets"})
 @Entity
 @Table(name = "lords")
-@JsonIgnoreProperties({"planets"})
+@Data
 public class Lord extends BaseEntity {
 
     @Column(name = "name")
-    @Getter
-    @Setter
     private String name;
 
     @Column(name = "age")
-    @Getter
-    @Setter
     private Long age;
 
-    @OneToMany(mappedBy = "lord", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Getter
+    @OneToMany(mappedBy = "lord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("lord")
     private Set<Planet> planets = new HashSet<>();
 
     public void setPlanets(Set<Planet> planets) {
