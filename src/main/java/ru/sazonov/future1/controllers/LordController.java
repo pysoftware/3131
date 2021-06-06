@@ -40,4 +40,9 @@ public class LordController {
     public ResponseEntity<List<Lord>> findFirst10OrderByAgeDesc() {
         return ResponseEntity.ok(lordService.get10YoungestLords());
     }
+
+    @GetMapping("/slackers")
+    public ResponseEntity<List<Lord>> findAllSlackerLords() {
+        return ResponseEntity.ok(lordService.findAllSlackerLords());
+    }
 }

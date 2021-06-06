@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.sazonov.future1.enteties.Lord;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,7 @@ public interface LordRepository extends JpaRepository<Lord, Long> {
 
     @EntityGraph(attributePaths = {"planets"})
     Optional<Lord> findById(Long lordId);
+
+    @Query("SELECT l FROM Lord l WHERE l.planets.size = 0")
+    List<Lord> findAllSlackerLords();
 }

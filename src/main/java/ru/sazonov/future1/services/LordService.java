@@ -33,6 +33,10 @@ public class LordService {
         return lordRepository.findFirst10Lords(Pageable.ofSize(10)).getContent();
     }
 
+    public List<Lord> findAllSlackerLords() {
+        return lordRepository.findAllSlackerLords();
+    }
+
     /**
      * @param lordId    lord id
      * @param lordModel lord model

@@ -60,6 +60,7 @@ public abstract class LordMapper {
             return Collections.emptySet();
         }
         Set<Planet> planets = new HashSet<>();
+        // may be repo.findAllIdIn(long id);
         planetIds.forEach(planetId -> {
             Optional<Planet> planet = planetRepository.findById(planetId);
             if (!planet.isPresent()) {

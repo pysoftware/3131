@@ -28,4 +28,10 @@ public class PlanetController {
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok(planetService.findAll());
     }
+
+    @DeleteMapping("/{planetId}")
+    public ResponseEntity<?> deletePlanetById(@PathVariable("planetId") Long planetId) {
+        planetService.deletePlanetById(planetId);
+        return ResponseEntity.ok().build();
+    }
 }

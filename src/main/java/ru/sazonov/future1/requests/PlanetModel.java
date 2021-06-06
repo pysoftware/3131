@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 public class PlanetModel {
-    public Long id;
     @NotBlank
-    public String name;
+    private String name;
+    private Long lordId;
 }
