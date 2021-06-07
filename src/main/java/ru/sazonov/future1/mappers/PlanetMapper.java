@@ -26,6 +26,9 @@ public abstract class PlanetMapper {
     public abstract Planet toPlanetEntity(PlanetModel planetModel);
 
     protected Lord toLordById(Long lordId) {
+        if (Objects.isNull(lordId)) {
+            return null;
+        }
         return lordRepository.findById(lordId).orElseThrow(() ->
                 new NotFoundEntityException(String.format("Lord with id: %d not found", lordId)));
     }
