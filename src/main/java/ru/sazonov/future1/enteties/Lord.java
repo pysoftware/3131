@@ -3,6 +3,7 @@ package ru.sazonov.future1.enteties;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,6 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "lords")
 @Data
+@SuperBuilder
+@NoArgsConstructor
 public class Lord extends BaseEntity {
 
     @Column(name = "name")

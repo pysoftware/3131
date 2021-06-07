@@ -2,6 +2,7 @@ package ru.sazonov.future1.enteties;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -9,6 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "planets")
 @Data
+@SuperBuilder
+@NoArgsConstructor
 public class Planet extends BaseEntity {
 
     @Column(name = "name")

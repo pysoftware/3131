@@ -3,15 +3,15 @@ package ru.sazonov.future1;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.view.document.AbstractPdfView;
 import ru.sazonov.future1.enteties.Lord;
 import ru.sazonov.future1.enteties.Planet;
 import ru.sazonov.future1.repositories.LordRepository;
 import ru.sazonov.future1.repositories.PlanetRepository;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 @Component
 @AllArgsConstructor
