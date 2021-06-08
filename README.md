@@ -5,7 +5,7 @@
 @Repository  
 @Service  
 @RestController
-MupStruct  
+MapStruct  
 @SpringBootTest & JUnit & IntegrationTest (LordRepositoryTest)  
 Тестовое задание
 
